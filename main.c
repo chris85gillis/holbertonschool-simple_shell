@@ -64,7 +64,6 @@ int main(int ac, char **argv)
 		 /* Check for the exit command */
         	if (strcmp(argv[0], "exit") == 0)
         	{
-            		printf("Exiting shell....\n");
             		break; /* Exit the loop instead of executing the command */
         	}
 		/* execute the command */
