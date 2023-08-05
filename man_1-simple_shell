@@ -1,0 +1,18 @@
+.TH Man_Page 1
+.SH NAME
+SimShell \- prompts and executes basic commands
+.SH AUTHORS
+.B Chris Gillis and Alyssa McNatt
+.SH SYNOPSIS
+.B SimShell
+[COMMAND]...
+.SH DESCRIPTION
+.B SimShell
+Prompts the user to type a basic command. After the user types a command, the shell then executes that command.
+.SH OPTIONS
+.TP
+.BR ls
+Prints the lists of files in the repository
+.TP
+.BR
+
