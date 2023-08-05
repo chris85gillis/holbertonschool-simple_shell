@@ -61,13 +61,19 @@ int main(int ac, char **argv)
 		}
 		argv[i] = NULL;
 
+		 /* Check for the exit command */
+        	if (strcmp(argv[0], "exit") == 0)
+        	{
+            		printf("Exiting shell....\n");
+            		break; // Exit the loop instead of executing the command
+        	}
 		/* execute the command */
 		execmd(argv);
+	
+
+		/* free up allocated memory */
+		free(lineptr_copy);
+		free(lineptr);
 	}
-
-	/* free up allocated memory */
-	free(lineptr_copy);
-	free(lineptr);
-
 	return (0);
 }
