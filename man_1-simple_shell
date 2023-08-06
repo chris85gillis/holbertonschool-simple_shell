@@ -10,9 +10,10 @@ SimShell \- prompts and executes basic commands
 .B SimShell
 Prompts the user to type a basic command. After the user types a command, the shell then executes that command.
 .SH OPTIONS
-.TP
+.TP interactive
 .BR ls
 Prints the lists of files in the repository
-.TP
-.BR
+.TP non-interactive
+.BR echo "/bin/ls" | .hsh
+Prints the lists of files in the repository
 
