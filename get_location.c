@@ -59,7 +59,7 @@ if (path)
 		}
 		/*if we don't get any file_path that exists for */
 		/*the command, we return NULL but we need to free up */
-		/*memory for path_copy */ 
+		/*memory for path_copy */
 		free(path_copy);
 
 		/*before we exit without luck, let's see */
