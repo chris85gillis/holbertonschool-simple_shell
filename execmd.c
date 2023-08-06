@@ -1,5 +1,9 @@
 #include "main.h"
 
+/* execmd - ...
+ * Return: ...
+ */
+
 void execmd(char **argv)
 {
 	char *command = NULL, *actual_command = NULL;

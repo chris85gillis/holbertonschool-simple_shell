@@ -1,5 +1,9 @@
 #include "main.h"
 
+/* main.c - ...
+ * Return: ...
+ */
+
 int main(int ac, char **argv)
 {
 	char *prompt = "(SimShell) $ ";
