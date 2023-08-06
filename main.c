@@ -58,9 +58,9 @@ int main(int ac, char **argv)
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * strlen(token) +1);
+			argv[i] = malloc(sizeof(char) * strlen(token) + 1);
 			strcpy(argv[i], token);
-			
+
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
