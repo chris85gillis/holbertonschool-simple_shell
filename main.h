@@ -10,6 +10,5 @@
 
 void execmd(char **argv);
 char *get_location(char *command);
-pid_t fork(void);
 
 #endif
