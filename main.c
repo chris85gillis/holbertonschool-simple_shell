@@ -47,12 +47,16 @@ int main(void)
 		token = strtok(lineptr, delim);
 		num_tokens = 0;
 
-		char *tokens[max_tokens];
-
+		char **tokens = malloc(sizeof(char *) * max_tokens);
+		if (tokens == NULL)
+		{
+			perror("tsh: memory allocation error");
+			return (-1);
+		}
 		while (token != NULL && num_tokens < max_tokens)
 		{
 			tokens[num_tokens] = strdup(token);
-			if (tokens[num_tokens] == NULL
+			if (tokens[num_tokens] == NULL)
 			{
 				perror("tsh: memory allocation error");
 				return (-1);
@@ -61,7 +65,6 @@ int main(void)
 			token = strtok(NULL, delim);
 		}
 		tokens[num_tokens] = NULL;
-
 		if (tokens[0] && strcmp(tokens[0], "exit") == 0)
 		{
 			printf("Exiting shell....\n");
@@ -74,9 +77,10 @@ int main(void)
 			free(tokens[i]);
 			tokens[i] = NULL;
 		}
+		free(tokens);
 		free(lineptr_copy);
 		lineptr_copy = NULL;
 	}
-	free(lineptr);
-	return (0);
+free(lineptr);
+return (0);
 }
