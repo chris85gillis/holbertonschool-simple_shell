@@ -1,15 +1,61 @@
 .TH Man_Page 1
+
 .SH NAME
-SimShell \- prompts and executes basic commands
-.SH AUTHORS
-.B Chris Gillis and Alyssa McNatt
+holbertonschool-simple_shell  aka SimShell \- a custom shell program that prompts and executes basic commands
+
 .SH SYNOPSIS
 .B SimShell
-[COMMAND]...
+[echo]
+[exit]
+[ls]
+[ls -l]
+[ls -l -a]
+
 .SH DESCRIPTION
 .B SimShell
-Prompts the user to type a basic command. After the user types a command, the shell then executes that command.
+The project's code consists of three C files (execmd.c, get_location.c, and main.c) and a header file (main.h). It is a simple implementation of a shell-like program that takes user input, parses the input into commands and arguments, and then executes the specified command using the execve system call.
+
 .SH OPTIONS
-.TP interactive
-.BR ls
-Prints the lists of files in the repository
+.TP
+
+.TP
+.BR [echo]
+Writes its arguemtns separated by blanks and terminated by a new line on the standard output.
+
+.TP
+.BR [exit]
+Causes an immediate termination of the entire program done by the operation system.
+
+.BR [ls]
+Prints the lists of files in long listing format.
+
+.TP
+.BR [ls -l]
+Shows every single thing located in the directory.
+
+.TP
+.BR [ls -l -a]
+Shows all files listed in the directory even entries starting with '.'.
+
+.SH FILES
+.TP
+.I /holbertonschool-simple_shell/
+
+.I /holbertonschool-simple_shell/AUTHORS
+
+.I /holbertonschool-simple_shell/README.md
+
+.I /holbertonschool-simple_shell/execmd.c
+
+.I /holbertonschool-simple_shell/get_location.c
+
+.I /holbertonschool-simple_shell/hsh
+
+.I /holbertonschool-simple_shell/main.c
+
+.I /holbertonschool-simple_shell/main.h
+
+.I /holbertonschool-simple_shell/man_1-simple_shell
+
+.SH AUTHORS
+.B Chris Gillis (chris85gillis@gmail.com) and Alyssa McNatt (alyssa.b.mcnatt@gmail.com)
