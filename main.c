@@ -18,10 +18,10 @@ char *read_command(void)
 	{
 		printf("Exiting shell....\n");
 		free(lineptr);
-		return NULL;
+		return (NULL);
 	}
 
-	return lineptr;
+	return (lineptr);
 }
 
 /**
@@ -58,7 +58,7 @@ char **tokenize_command(char *command)
 	}
 	cmd_argv[i] = NULL;
 
-	return cmd_argv;
+	return (cmd_argv);
 }
 
 /**
@@ -101,5 +101,5 @@ int main(int ac, char **cmd_argv)
 		free(cmd_argv);
 	}
 
-	return 0;
+	return (0);
 }
