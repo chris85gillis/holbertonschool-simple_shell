@@ -40,7 +40,7 @@ Shows all files listed in the directory even entries starting with '.'.
 
 .TP
 .BR [ls /var]
-shows the names of various subdirectories within the /var directory.
+Shows the names of various subdirectories within the /var directory.
 
 .SH FILES
 .TP
