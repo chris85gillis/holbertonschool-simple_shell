@@ -48,7 +48,6 @@ char *find_command_location(const char *path, const char *command)
 	if (!path_copy)
 		return NULL;
 
-	struct stat buffer;
 	const char *delim = ":";
 	char *path_token = strtok(path_copy, delim);
 	char *file_path;
