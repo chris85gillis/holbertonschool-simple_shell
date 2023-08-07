@@ -13,7 +13,3 @@ Prompts the user to type a basic command. After the user types a command, the sh
 .TP interactive
 .BR ls
 Prints the lists of files in the repository
-.TP non-interactive
-.BR echo "/bin/ls" | .hsh
-Prints the lists of files in the repository
-
