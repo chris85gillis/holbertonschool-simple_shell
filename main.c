@@ -5,7 +5,7 @@
  * Return: 0
  */
 
-int main(char **cmd_argv)
+int main(int ac, char **cmd_argv)
 {
 	char *prompt = "(SimShell) $ ";
 	char *lineptr = NULL, *lineptr_copy = NULL;
@@ -15,6 +15,8 @@ int main(char **cmd_argv)
 	int num_tokens = 0;
 	char *token;
 	int i;
+
+	(void)ac;
 
 	/*Create a loop for the shell's prompt */
 	while (1)
