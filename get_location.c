@@ -1,95 +1,83 @@
 #include "main.h"
 
 /**
- * duplicate_string - Duplicate a string using malloc.
- * @str: The string to duplicate.
+ * get_location -  find the path of a given command.
+ * @command: the name of the command for which you want to find the full path.
  *
- * Return: The duplicated string.
+ * Return: NULL
  */
-char *duplicate_string(const char *str)
-{
-	char *duplicate = malloc(strlen(str) + 1);
 
-	if (duplicate)
-		strcpy(duplicate, str);
-	return (duplicate);
-}
-
-/**
- * build_file_path - Build the full file path.
- * @path: The directory path.
- * @command: The command name.
- *
- * Return: The constructed file path.
- */
-char *build_file_path(const char *path, const char *command)
-{
-	char *file_path;
-
-	file_path = malloc(strlen(path) + strlen(command) + 2);
-
-	if (file_path)
-	{
-		strcpy(file_path, path);
-		strcat(file_path, "/");
-		strcat(file_path, command);
-	}
-	return (file_path);
-}
-
-/**
- * find_command_location - Find the location of a given command.
- * @path: The PATH environment variable.
- * @command: The name of the command.
- *
- * Return: The full path of the command, or NULL if not found.
- */
-char *find_command_location(const char *path, const char *command)
-{
-	const char *delim = ":";
-	struct stat buffer;
-	char *path_copy = duplicate_string(path);
-	char *path_token = strtok(path_copy, delim);
-	char *file_path;
-
-	if (!path_copy)
-	return (NULL);
-
-	while (path_token)
-	{
-		file_path = build_file_path(path_token, command);
-		if (!file_path)
-			continue;
-
-		if (stat(file_path, &buffer) == 0)
-		{
-			free(path_copy);
-			return (file_path);
-		}
-		free(file_path);
-		path_token = strtok(NULL, delim);
-	}
-
-	free(path_copy);
-
-	if (stat(command, &buffer) == 0)
-		return (duplicate_string(command));
-
-	return (NULL);
-}
-
-/**
- * get_location - Find the path of a given command.
- * @command: The name of the command.
- *
- * Return: The full path of the command, or NULL if not found.
- */
 char *get_location(char *command)
 {
-	char *path = getenv("PATH");
+	char *path, *path_copy, *path_token, *file_path;
+	int command_length, directory_length;
+	struct stat buffer;
+
+	path = getenv("PATH");
 
 	if (path)
-		return (find_command_location(path, command));
+	{
+		/*Duplicate the path string -> remember to free up */
+		/*memory for this because strdup allocates memory that */
+		/*needs to be freed*/
+		path_copy = strdup(path);
+		/*Get length of the command that was passed */
+		command_length = strlen(command);
 
+		/*Let's break down the path variable and get all the */
+		/*directories available*/
+		path_token = strtok(path_copy, ":");
+
+		while (path_token != NULL)
+		{
+			/*Get the length of the directory*/
+			directory_length = strlen(path_token);
+			/*allocate memory for storing the command name */
+			/*together with the directory name */
+			file_path = malloc(command_length + directory_length + 2);
+			/*NB: we added 2 for the slash and null character */
+			/*we will introduce in the full command */
+
+			/*to build the path for the command, let's copy the */
+			/*directory path and concatenate the command to it */
+			strcpy(file_path, path_token);
+			strcat(file_path, "/");
+			strcat(file_path, command);
+			strcat(file_path, "\0");
+
+			/*let's test if this file path actually exists */
+			/*and return it if it does, otherwise try the next */
+			/*directory */
+			if (stat(file_path, &buffer) == 0)
+			/*return value of 0 means success implying that */
+			/*the file_path is valid*/
+			{
+				/*free up allocated memory before returning */
+				/*your file_path */
+				free(path_copy);
+
+				return (file_path);
+			}
+			else
+			{
+				/*free up the file_path memory so we can check*/
+				/*for another path*/
+				free(file_path);
+				path_token = strtok(NULL, ":");
+			}
+		}
+		/*if we don't get any file_path that exists for */
+		/*the command, we return NULL but we need to free up */
+		/*memory for path_copy */
+		free(path_copy);
+
+		/*before we exit without luck, let's see */
+		/*if the command itself is a file_path that exists */
+		if (stat(command, &buffer) == 0)
+		{
+			return (command);
+		}
+		return (NULL);
+	}
 	return (NULL);
 }
