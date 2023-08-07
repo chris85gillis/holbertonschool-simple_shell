@@ -19,8 +19,7 @@ void execmd(char **argv)
 
 		/* execute the actual command with execve */
 		if (execve(actual_command, argv, NULL) == -1)
-:x
 			perror("Error:\n");
-		}
 	}
+	
 }
