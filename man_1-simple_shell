@@ -10,6 +10,7 @@ holbertonschool-simple_shell  aka SimShell \- a custom shell program that prompt
 [ls]
 [ls -l]
 [ls -l -a]
+[ls /var]
 
 .SH DESCRIPTION
 .B SimShell
@@ -36,6 +37,10 @@ Shows every single thing located in the directory.
 .TP
 .BR [ls -l -a]
 Shows all files listed in the directory even entries starting with '.'.
+
+.TP
+.BR [ls /var]
+shows the names of various subdirectories within the /var directory.
 
 .SH FILES
 .TP
