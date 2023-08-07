@@ -40,3 +40,9 @@ Code Visualization
 This visualization of our code shows how each function currently works with each other. Because we were not able to finsish this project in time it is not a fully fleshed out program but this should give you an idea of what we have at the moment.
 
 ![Simple Shell Flowchart](https://github.com/chris85gillis/holbertonschool-simple_shell/assets/126268722/528b8a86-57a8-40f6-8438-798c0282eb0f)
+
+Authors
+-----------
+
+Chris Gillis <chris85gillis@gmail.com>
+/ Alyssa McNatt <alyssa.b.mcnatt@gmail.com>
