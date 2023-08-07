@@ -5,20 +5,20 @@
  * Return: NULL
  */
 
-void execmd(char **cmd_argv)
+void execmd(char **argv)
 {
 	char *command = NULL, *actual_command = NULL;
 
-	if (cmd_argv)
+	if (argv)
 	{
 		/* get the command */
-		command = cmd_argv[0];
+		command = argv[0];
 
 		/* generate the path to this command before passing it to execve */
 		actual_command = get_location(command);
 
 		/* execute the actual command with execve */
-		if (execve(actual_command, cmd_argv, NULL) == -1)
+		if (execve(actual_command, argv, NULL) == -1)
 			perror("Error:\n");
 		}
 	}
