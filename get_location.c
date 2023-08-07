@@ -1,6 +1,7 @@
 #include "main.h"
 
-/* get_location -  find the full path of a given command by searching through the directories.
+/** 
+ * get_location -  find the full path of a given command by searching through the directories.
  *
  * Return: NULL
  */
