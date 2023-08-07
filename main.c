@@ -63,7 +63,7 @@ int main(int ac, char **cmd_argv)
 		for (i = 0; token != NULL; i++)
 		{
 			cmd_argv[i] = malloc(sizeof(char) * strlen(token) + 1);
-			strcpy(argv[i], token);
+			strcpy(cmd_argv[i], token);
 
 			token = strtok(NULL, delim);
 		}
