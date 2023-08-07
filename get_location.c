@@ -2,6 +2,7 @@
 
 /** 
  * get_location -  find the full path of a given command by searching through the directories.
+ * @command: the name of the command for which you want to find the full path.
  *
  * Return: NULL
  */
