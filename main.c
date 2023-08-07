@@ -1,92 +1,107 @@
 #include "main.h"
 
 /**
- * main - entry point
- * @ac: number of command-line arguments passed to the program.
- * @cmd_argv: the command-line arguments provided to the program.
+ * read_command - Read a command from the user.
  *
- * Return: 0
+ * Return: The entered command.
  */
-
-int main(int ac, char **cmd_argv)
+char *read_command(void)
 {
-	char *prompt = "(SimShell) $ ";
-	char *lineptr = NULL, *lineptr_copy = NULL;
+	char *lineptr = NULL;
 	size_t n = 0;
 	ssize_t nchars_read;
+
+	printf("(SimShell) $ ");
+	nchars_read = getline(&lineptr, &n, stdin);
+
+	if (nchars_read == -1)
+	{
+		printf("Exiting shell....\n");
+		free(lineptr);
+		return NULL;
+	}
+
+	return lineptr;
+}
+
+/**
+ * tokenize_command - Tokenize a command string into arguments.
+ * @command: The command string to tokenize.
+ *
+ * Return: An array of argument strings.
+ */
+char **tokenize_command(char *command)
+{
 	const char *delim = " \n";
 	int num_tokens = 0;
 	char *token;
-	int i;
+	char **cmd_argv;
+	int i = 0;
+
+	token = strtok(command, delim);
+
+	while (token != NULL)
+	{
+		num_tokens++;
+		token = strtok(NULL, delim);
+	}
+	num_tokens++;
+
+	cmd_argv = malloc(sizeof(char *) * num_tokens);
+
+	token = strtok(command, delim);
+
+	for (i = 0; token != NULL; i++)
+	{
+		cmd_argv[i] = strdup(token);
+		token = strtok(NULL, delim);
+	}
+	cmd_argv[i] = NULL;
+
+	return cmd_argv;
+}
+
+/**
+ * main - Entry point.
+ * @ac: Number of command-line arguments passed to the program.
+ * @cmd_argv: The command-line arguments provided to the program.
+ *
+ * Return: 0
+ */
+int main(int ac, char **cmd_argv)
+{
+	char *prompt = "(SimShell) $ ";
+	char *command;
+	int status;
 
 	(void)ac;
 
-	/*Create a loop for the shell's prompt */
 	while (1)
 	{
-		printf("%s", prompt);
-		nchars_read = getline(&lineptr, &n, stdin);
-		/*check if the getline function failed or reached */
-		/*EOF or user used CTRL + D */
-		if (nchars_read == -1)
+		command = read_command();
+
+		if (command == NULL)
+		break;
+
+		cmd_argv = tokenize_command(command);
+
+		if (cmd_argv == NULL)
 		{
-			printf("Exiting shell....\n");
-			break;
-			/*Exit the loop instead of returning */
-			/*from the main function */
+			free(command);
+			continue;
 		}
 
-		/*Allocate space for a copy of the lineptr */
-		lineptr_copy = malloc(sizeof(char) * nchars_read + 1);
-		if (lineptr_copy == NULL)
-		{
-			perror("tsh: memory allocation error");
-			return (-1);
-		}
-
-		/*copy lineptr to lineptr_copy */
-		strcpy(lineptr_copy, lineptr);
-		/*split the string (lineptr) into an array of words */
-		/*calculate the total number of tokens */
-		token = strtok(lineptr, delim);
-
-		while (token != NULL)
-		{
-			num_tokens++;
-			token = strtok(NULL, delim);
-		}
-		num_tokens++;
-
-		/*Allocate space to hold the array of strings */
-		cmd_argv = malloc(sizeof(char *) * num_tokens);
-
-		/*Store each token in the argv array */
-		token = strtok(lineptr_copy, delim);
-
-		for (i = 0; token != NULL; i++)
-		{
-			cmd_argv[i] = malloc(sizeof(char) * strlen(token) + 1);
-			strcpy(cmd_argv[i], token);
-
-			token = strtok(NULL, delim);
-		}
-		cmd_argv[i] = NULL;
-
-		/*Check for the exit command */
 		if (strcmp(cmd_argv[0], "exit") == 0)
 		{
 			printf("Exiting shell....\n");
 			break;
-			/*Exit the loop instead of executing the command */
 		}
 
-		/*execute the command */
-		execmd(cmd_argv);
+		status = execmd(cmd_argv);
 
-		/*free up allocated memory */
-		free(lineptr_copy);
-		free(lineptr);
+		free(command);
+		free(cmd_argv);
 	}
 
-	return (0);
+	return 0;
 }
