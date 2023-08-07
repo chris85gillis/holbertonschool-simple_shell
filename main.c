@@ -70,9 +70,7 @@ char **tokenize_command(char *command)
  */
 int main(int ac, char **cmd_argv)
 {
-	char *prompt = "(SimShell) $ ";
 	char *command;
-	int status;
 
 	(void)ac;
 
@@ -97,7 +95,7 @@ int main(int ac, char **cmd_argv)
 			break;
 		}
 
-		status = execmd(cmd_argv);
+		execmd(cmd_argv);
 
 		free(command);
 		free(cmd_argv);
