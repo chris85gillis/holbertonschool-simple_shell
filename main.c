@@ -26,17 +26,16 @@ int main(int ac, char **argv)
 	{
 		printf("%s", prompt);
 		nchars_read = getline(&lineptr, &n, stdin);
-		/*check if the getline function failed or reached */
-		/*EOF or user used CTRL + D */
+		/*check if the function worked or not */
+
 		if (nchars_read == -1)
 		{
 			printf("Exiting shell....\n");
 			break;
-			/*Exit the loop instead of returning */
-			/*from the main function */
+			/*Exit loop */
 		}
 
-		/*Allocate space for a copy of the lineptr */
+		/*Make space for a copy of the lineptr */
 		lineptr_copy = malloc(sizeof(char) * nchars_read + 1);
 		if (lineptr_copy == NULL)
 		{
@@ -44,9 +43,8 @@ int main(int ac, char **argv)
 			return (-1);
 		}
 
-		/*copy lineptr to lineptr_copy */
 		strcpy(lineptr_copy, lineptr);
-		/*split the string (lineptr) into an array of words */
+		/*split the string into an array */
 		/*calculate the total number of tokens */
 		token = strtok(lineptr, delim);
 
@@ -57,7 +55,7 @@ int main(int ac, char **argv)
 		}
 		num_tokens++;
 
-		/*Allocate space to hold the array of strings */
+		/*Make space to hold the array of strings */
 		argv = malloc(sizeof(char *) * num_tokens);
 
 		/*Store each token in the argv array */
@@ -77,13 +75,10 @@ int main(int ac, char **argv)
 		{
 			printf("Exiting shell....\n");
 			break;
-			/*Exit the loop instead of executing the command */
 		}
 
-		/*execute the command */
 		execmd(argv);
 
-		/*free up allocated memory */
 		free(lineptr_copy);
 		free(lineptr);
 	}
