@@ -5,7 +5,7 @@
  * Return: 0
  */
 
-int main(int ac, char **argv)
+int main(char **cmd_argv)
 {
 	char *prompt = "(SimShell) $ ";
 	char *lineptr = NULL, *lineptr_copy = NULL;
@@ -15,9 +15,6 @@ int main(int ac, char **argv)
 	int num_tokens = 0;
 	char *token;
 	int i;
-
-	/*declaring void variables */
-	(void)ac;
 
 	/*Create a loop for the shell's prompt */
 	while (1)
@@ -56,22 +53,22 @@ int main(int ac, char **argv)
 		num_tokens++;
 
 		/*Allocate space to hold the array of strings */
-		argv = malloc(sizeof(char *) * num_tokens);
+		cmd_argv = malloc(sizeof(char *) * num_tokens);
 
 		/*Store each token in the argv array */
 		token = strtok(lineptr_copy, delim);
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * strlen(token) + 1);
+			cmd_argv[i] = malloc(sizeof(char) * strlen(token) + 1);
 			strcpy(argv[i], token);
 
 			token = strtok(NULL, delim);
 		}
-		argv[i] = NULL;
+		cmd_argv[i] = NULL;
 
 		/*Check for the exit command */
-		if (strcmp(argv[0], "exit") == 0)
+		if (strcmp(cmd_argv[0], "exit") == 0)
 		{
 			printf("Exiting shell....\n");
 			break;
@@ -79,7 +76,7 @@ int main(int ac, char **argv)
 		}
 
 		/*execute the command */
-		execmd(argv);
+		execmd(cmd_argv);
 
 		/*free up allocated memory */
 		free(lineptr_copy);
