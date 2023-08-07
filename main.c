@@ -58,22 +58,22 @@ int main(int ac, char **cmd_argv)
 		num_tokens++;
 
 		/*Allocate space to hold the array of strings */
-		argv = malloc(sizeof(char *) * num_tokens);
+		argument = malloc(sizeof(char *) * num_tokens);
 
 		/*Store each token in the argv array */
 		token = strtok(lineptr_copy, delim);
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * strlen(token) + 1);
-			strcpy(argv[i], token);
+			argument[i] = malloc(sizeof(char) * strlen(token) + 1);
+			strcpy(argument[i], token);
 
 			token = strtok(NULL, delim);
 		}
-		cmd_argv[i] = NULL;
+		argument[i] = NULL;
 
 		/*Check for the exit command */
-		if (strcmp(argv[0], "exit") == 0)
+		if (strcmp(argument[0], "exit") == 0)
 		{
 			printf("Exiting shell....\n");
 			break;
@@ -81,7 +81,7 @@ int main(int ac, char **cmd_argv)
 		}
 
 		/*execute the command */
-		execmd(argv);
+		execmd(argument);
 
 		/*free up allocated memory */
 		free(lineptr_copy);
