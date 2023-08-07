@@ -17,6 +17,13 @@ int main(void)
 	int i;
 	const int max_tokens = 100;
 
+	char **tokens = malloc(sizeof(char *) * max_tokens);
+		if (tokens == NULL)
+		{
+			perror("tsh: memory allocation error");
+			return (-1);
+		}
+	
 	/*Create a loop for the shell's prompt */
 	while (1)
 	{
@@ -47,12 +54,6 @@ int main(void)
 		token = strtok(lineptr, delim);
 		num_tokens = 0;
 
-		char **tokens = malloc(sizeof(char *) * max_tokens);
-		if (tokens == NULL)
-		{
-			perror("tsh: memory allocation error");
-			return (-1);
-		}
 		while (token != NULL && num_tokens < max_tokens)
 		{
 			tokens[num_tokens] = strdup(token);
