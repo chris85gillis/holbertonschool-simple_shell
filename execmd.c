@@ -13,13 +13,13 @@ void execmd(char **argv)
 
 	if (argv)
 	{
-		/* get the command */
+		/* Get the command */
 		command = argv[0];
 
-		/* generate the path to this command before passing it to execve */
+		/* Generate the path to this command before passing it to execve */
 		actual_command = get_location(command);
 
-		/* execute the actual command with execve */
+		/* Execute the actual command with execve */
 		if (execve(actual_command, argv, NULL) == -1)
 		{
 			perror("Error:\n");
