@@ -9,9 +9,10 @@
 char *duplicate_string(const char *str)
 {
 	char *duplicate = malloc(strlen(str) + 1);
+
 	if (duplicate)
 		strcpy(duplicate, str);
-	return duplicate;
+	return (duplicate);
 }
 
 /**
@@ -25,13 +26,14 @@ char *build_file_path(const char *path, const char *command)
 {
 	char *file_path;
 	file_path = malloc(strlen(path) + strlen(command) + 2);
+	
 	if (file_path)
 	{
 		strcpy(file_path, path);
 		strcat(file_path, "/");
 		strcat(file_path, command);
 	}
-	return file_path;
+	return (file_path;)
 }
 
 /**
@@ -49,8 +51,8 @@ char *find_command_location(const char *path, const char *command)
 	char *path_token = strtok(path_copy, delim);
 	char *file_path;
 	
-	 if (!path_copy)
-        return NULL;
+	if (!path_copy)
+        return (NULL);
 	
 	while (path_token)
 	{
@@ -61,7 +63,7 @@ char *find_command_location(const char *path, const char *command)
 		if (stat(file_path, &buffer) == 0)
 		{
 			free(path_copy);
-			return file_path;
+			return (file_path);
 		}
 		free(file_path);
 		path_token = strtok(NULL, delim);
@@ -72,7 +74,7 @@ char *find_command_location(const char *path, const char *command)
 	if (stat(command, &buffer) == 0)
 		return duplicate_string(command);
 
-	return NULL;
+	return (NULL);
 }
 
 /**
@@ -84,8 +86,9 @@ char *find_command_location(const char *path, const char *command)
 char *get_location(char *command)
 {
 	char *path = getenv("PATH");
+	
 	if (path)
-		return find_command_location(path, command);
+		return (find_command_location(path, command));
 
-	return NULL;
+	return (NULL);
 }
