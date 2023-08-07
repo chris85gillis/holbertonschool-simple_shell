@@ -30,9 +30,9 @@ The best way to install this program is to go into your terminal. First you'll h
 How to Use
 -----------
 
-Once you have the repo cloned, installed and are in the actual repository you can run it by entering './hsh'. This will start up our simple shell and give you access to do a few different options. (echo, exit, ls, ls -l, ls -l -a) Unfortunatly, we were not able to make our Shell stay open after entering any command. So after the user input it automatically kicks you out of the SimShell. 
+Once you have the repo cloned, installed and are in the actual repository you can run it by entering './hsh'. This will start up our simple shell and give you access to do a few different options. (echo, exit, ls, ls -l, ls -l -a, ls /var) Unfortunatly, we were not able to make our Shell stay open after entering any command. So after the user input it automatically kicks you out of the SimShell. 
 
-![SimShell Example](https://github.com/chris85gillis/holbertonschool-simple_shell/assets/126268722/085e231f-25d7-415c-9ff8-1b0f3add8517)
+![SimShell Example](https://github.com/chris85gillis/holbertonschool-simple_shell/assets/126268722/645ee484-d816-47a0-bef9-9d3f79f1fe7d)
 
 Code Visualization
 -----------
