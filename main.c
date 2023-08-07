@@ -26,7 +26,7 @@ int main(int ac, char **argv)
 	{
 		printf("%s", prompt);
 		nchars_read = getline(&lineptr, &n, stdin);
-		/*check if the function worked or not */
+		/*Check if the function worked or not */
 
 		if (nchars_read == -1)
 		{
@@ -44,8 +44,8 @@ int main(int ac, char **argv)
 		}
 
 		strcpy(lineptr_copy, lineptr);
-		/*split the string into an array */
-		/*calculate the total number of tokens */
+		/*Split the string into an array */
+		/*Calculate the total number of tokens */
 		token = strtok(lineptr, delim);
 
 		while (token != NULL)
