@@ -33,7 +33,7 @@ char *build_file_path(const char *path, const char *command)
 		strcat(file_path, "/");
 		strcat(file_path, command);
 	}
-	return (file_path;)
+	return (file_path);
 }
 
 /**
