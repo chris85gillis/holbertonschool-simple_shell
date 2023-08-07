@@ -1,83 +1,92 @@
 #include "main.h"
 
 /**
- * get_location -  find the path of a given command.
- * @command: the name of the command for which you want to find the full path.
+ * main - entry point
+ * @ac: number of command-line arguments passed to the program.
+ * @cmd_argv: the command-line arguments provided to the program.
  *
- * Return: NULL
+ * Return: 0
  */
 
-char *get_location(char *command)
+int main(int ac, char **cmd_argv)
 {
-	char *path, *path_copy, *path_token, *file_path;
-	int command_length, directory_length;
-	struct stat buffer;
+	char *prompt = "(SimShell) $ ";
+	char *lineptr = NULL, *lineptr_copy = NULL;
+	size_t n = 0;
+	ssize_t nchars_read;
+	const char *delim = " \n";
+	int num_tokens = 0;
+	char *token;
+	int i;
 
-	path = getenv("PATH");
+	(void)ac;
 
-	if (path)
+	/*Create a loop for the shell's prompt */
+	while (1)
 	{
-		/*Duplicate the path string -> remember to free up */
-		/*memory for this because strdup allocates memory that */
-		/*needs to be freed*/
-		path_copy = strdup(path);
-		/*Get length of the command that was passed */
-		command_length = strlen(command);
-
-		/*Let's break down the path variable and get all the */
-		/*directories available*/
-		path_token = strtok(path_copy, ":");
-
-		while (path_token != NULL)
+		printf("%s", prompt);
+		nchars_read = getline(&lineptr, &n, stdin);
+		/*check if the getline function failed or reached */
+		/*EOF or user used CTRL + D */
+		if (nchars_read == -1)
 		{
-			/*Get the length of the directory*/
-			directory_length = strlen(path_token);
-			/*allocate memory for storing the command name */
-			/*together with the directory name */
-			file_path = malloc(command_length + directory_length + 2);
-			/*NB: we added 2 for the slash and null character */
-			/*we will introduce in the full command */
-
-			/*to build the path for the command, let's copy the */
-			/*directory path and concatenate the command to it */
-			strcpy(file_path, path_token);
-			strcat(file_path, "/");
-			strcat(file_path, command);
-			strcat(file_path, "\0");
-
-			/*let's test if this file path actually exists */
-			/*and return it if it does, otherwise try the next */
-			/*directory */
-			if (stat(file_path, &buffer) == 0)
-			/*return value of 0 means success implying that */
-			/*the file_path is valid*/
-			{
-				/*free up allocated memory before returning */
-				/*your file_path */
-				free(path_copy);
-
-				return (file_path);
-			}
-			else
-			{
-				/*free up the file_path memory so we can check*/
-				/*for another path*/
-				free(file_path);
-				path_token = strtok(NULL, ":");
-			}
+			printf("Exiting shell....\n");
+			break;
+			/*Exit the loop instead of returning */
+			/*from the main function */
 		}
-		/*if we don't get any file_path that exists for */
-		/*the command, we return NULL but we need to free up */
-		/*memory for path_copy */
-		free(path_copy);
 
-		/*before we exit without luck, let's see */
-		/*if the command itself is a file_path that exists */
-		if (stat(command, &buffer) == 0)
+		/*Allocate space for a copy of the lineptr */
+		lineptr_copy = malloc(sizeof(char) * nchars_read + 1);
+		if (lineptr_copy == NULL)
 		{
-			return (command);
+			perror("tsh: memory allocation error");
+			return (-1);
 		}
-		return (NULL);
+
+		/*copy lineptr to lineptr_copy */
+		strcpy(lineptr_copy, lineptr);
+		/*split the string (lineptr) into an array of words */
+		/*calculate the total number of tokens */
+		token = strtok(lineptr, delim);
+
+		while (token != NULL)
+		{
+			num_tokens++;
+			token = strtok(NULL, delim);
+		}
+		num_tokens++;
+
+		/*Allocate space to hold the array of strings */
+		cmd_argv = malloc(sizeof(char *) * num_tokens);
+
+		/*Store each token in the argv array */
+		token = strtok(lineptr_copy, delim);
+
+		for (i = 0; token != NULL; i++)
+		{
+			cmd_argv[i] = malloc(sizeof(char) * strlen(token) + 1);
+			strcpy(cmd_argv[i], token);
+
+			token = strtok(NULL, delim);
+		}
+		cmd_argv[i] = NULL;
+
+		/*Check for the exit command */
+		if (strcmp(cmd_argv[0], "exit") == 0)
+		{
+			printf("Exiting shell....\n");
+			break;
+			/*Exit the loop instead of executing the command */
+		}
+
+		/*execute the command */
+		execmd(cmd_argv);
+
+		/*free up allocated memory */
+		free(lineptr_copy);
+		free(lineptr);
 	}
-	return (NULL);
+
+	return (0);
 }
