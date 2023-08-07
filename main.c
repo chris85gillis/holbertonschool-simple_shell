@@ -2,7 +2,7 @@
 
 /**
  * main - entry point
- * @ac: number of command-line arguments passed to the program when it is executed.
+ * @ac: number of command-line arguments passed to the program.
  * @cmd_argv: the command-line arguments provided to the program.
  *
  * Return: 0
