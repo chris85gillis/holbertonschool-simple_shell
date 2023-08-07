@@ -41,6 +41,7 @@ char *get_location(char *command)
 			strcpy(file_path, path_token);
 			strcat(file_path, "/");
 			strcat(file_path, command);
+			strcat(file_path, "\0");
 
 			/*let's test if this file path actually exists */
 			/*and return it if it does, otherwise try the next */
