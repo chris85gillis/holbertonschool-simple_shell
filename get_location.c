@@ -43,6 +43,7 @@ char *build_file_path(const char *path, const char *command)
  */
 char *find_command_location(const char *path, const char *command)
 {
+	struct stat buffer;
 	char *path_copy = duplicate_string(path);
 	if (!path_copy)
 		return NULL;
