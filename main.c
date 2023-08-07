@@ -5,7 +5,7 @@
  * Return: 0
  */
 
-int main(void)
+int main(int ac, char **cmd_argv)
 {
 	char *prompt = "(SimShell) $ ";
 	char *lineptr = NULL, *lineptr_copy = NULL;
@@ -15,15 +15,9 @@ int main(void)
 	int num_tokens = 0;
 	char *token;
 	int i;
-	const int max_tokens = 100;
 
-	char **tokens = malloc(sizeof(char *) * max_tokens);
-		if (tokens == NULL)
-		{
-			perror("tsh: memory allocation error");
-			return (-1);
-		}
-	
+	(void)ac;
+
 	/*Create a loop for the shell's prompt */
 	while (1)
 	{
@@ -52,36 +46,44 @@ int main(void)
 		/*split the string (lineptr) into an array of words */
 		/*calculate the total number of tokens */
 		token = strtok(lineptr, delim);
-		num_tokens = 0;
 
-		while (token != NULL && num_tokens < max_tokens)
+		while (token != NULL)
 		{
-			tokens[num_tokens] = strdup(token);
-			if (tokens[num_tokens] == NULL)
-			{
-				perror("tsh: memory allocation error");
-				return (-1);
-			}
 			num_tokens++;
 			token = strtok(NULL, delim);
 		}
-		tokens[num_tokens] = NULL;
-		if (tokens[0] && strcmp(tokens[0], "exit") == 0)
+		num_tokens++;
+
+		/*Allocate space to hold the array of strings */
+		cmd_argv = malloc(sizeof(char *) * num_tokens);
+
+		/*Store each token in the argv array */
+		token = strtok(lineptr_copy, delim);
+
+		for (i = 0; token != NULL; i++)
+		{
+			cmd_argv[i] = malloc(sizeof(char) * strlen(token) + 1);
+			strcpy(cmd_argv[i], token);
+
+			token = strtok(NULL, delim);
+		}
+		cmd_argv[i] = NULL;
+
+		/*Check for the exit command */
+		if (strcmp(cmd_argv[0], "exit") == 0)
 		{
 			printf("Exiting shell....\n");
 			break;
+			/*Exit the loop instead of executing the command */
 		}
-		execmd(tokens);
 
-		for (i = 0; i < num_tokens; i++)
-		{
-			free(tokens[i]);
-			tokens[i] = NULL;
-		}
-		free(tokens);
+		/*execute the command */
+		execmd(cmd_argv);
+
+		/*free up allocated memory */
 		free(lineptr_copy);
-		lineptr_copy = NULL;
+		free(lineptr);
 	}
-free(lineptr);
-return (0);
+
+	return (0);
 }
