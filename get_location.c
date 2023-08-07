@@ -25,7 +25,7 @@ char *duplicate_string(const char *str)
 char *build_file_path(const char *path, const char *command)
 {
 	char *file_path;
-	
+
 	file_path = malloc(strlen(path) + strlen(command) + 2);
 
 	if (file_path)
@@ -54,7 +54,7 @@ char *find_command_location(const char *path, const char *command)
 
 	if (!path_copy)
 	return (NULL);
-	
+
 	while (path_token)
 	{
 		file_path = build_file_path(path_token, command);
