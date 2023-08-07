@@ -2,7 +2,7 @@
 
 /**
  * execmd - execute a given command.
- * @argv - a pointer to an array of strings.
+ * @argv: a pointer to an array of strings.
  *
  * Return: NULL
  */
