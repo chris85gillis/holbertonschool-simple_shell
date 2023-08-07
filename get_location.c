@@ -27,17 +27,17 @@ char *get_location(char *command)
 		while (path_token != NULL)
 		{
 			directory_length = strlen(path_token);
-			/*make memory for the command */
+			/*Make memory for the command */
 			file_path = malloc(command_length + directory_length + 2);
-			/*NB: we added 2 for the slash and null character */
+			/*We added 2 for the slash and null character */
 			strcpy(file_path, path_token);
 			strcat(file_path, "/");
 			strcat(file_path, command);
 			strcat(file_path, "\0");
 
-			/*test if this file path actually exists */
+			/*Test if this file path actually exists */
 			if (stat(file_path, &buffer) == 0)
-			/*return value of 0 means success */
+			/*Return value of 0 means success */
 			{
 				free(path_copy);
 
@@ -49,7 +49,7 @@ char *get_location(char *command)
 				path_token = strtok(NULL, ":");
 			}
 		}
-		/*return NULL; need to free up memory */
+		/*Return NULL; need to free up memory */
 		free(path_copy);
 
 		if (stat(command, &buffer) == 0)
@@ -60,3 +60,4 @@ char *get_location(char *command)
 	}
 	return (NULL);
 
+}
