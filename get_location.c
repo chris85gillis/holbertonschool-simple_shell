@@ -25,8 +25,9 @@ char *duplicate_string(const char *str)
 char *build_file_path(const char *path, const char *command)
 {
 	char *file_path;
-	file_path = malloc(strlen(path) + strlen(command) + 2);
 	
+	file_path = malloc(strlen(path) + strlen(command) + 2);
+
 	if (file_path)
 	{
 		strcpy(file_path, path);
@@ -50,9 +51,9 @@ char *find_command_location(const char *path, const char *command)
 	char *path_copy = duplicate_string(path);
 	char *path_token = strtok(path_copy, delim);
 	char *file_path;
-	
+
 	if (!path_copy)
-        return (NULL);
+	return (NULL);
 	
 	while (path_token)
 	{
@@ -72,7 +73,7 @@ char *find_command_location(const char *path, const char *command)
 	free(path_copy);
 
 	if (stat(command, &buffer) == 0)
-		return duplicate_string(command);
+		return (duplicate_string(command));
 
 	return (NULL);
 }
@@ -86,7 +87,7 @@ char *find_command_location(const char *path, const char *command)
 char *get_location(char *command)
 {
 	char *path = getenv("PATH");
-	
+
 	if (path)
 		return (find_command_location(path, command));
 
