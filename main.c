@@ -81,7 +81,7 @@ int main(int ac, char **argv)
 		}
 
 		/*execute the command */
-		execmd(argument);
+		execmd(argv);
 
 		/*free up allocated memory */
 		free(lineptr_copy);
