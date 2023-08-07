@@ -1,7 +1,7 @@
 #include "main.h"
 
-/* execmd - ...
- * Return: ...
+/* execmd - execute a given command.
+ * Return: NULL
  */
 
 void execmd(char **argv)
