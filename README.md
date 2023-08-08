@@ -8,7 +8,7 @@ Project Description
 
 **1. execmd.c**
   
-This file contains the execmd function, responsible for executing a given command with its arguments using execve. The execmd function takes a 2D array of strings (char **argument) as input, where the first element (argument[0]) is the command to be executed, and the rest of the elements are arguments to that command.
+This file contains the execmd function, responsible for executing a given command with its arguments using execve. The execmd function takes a 2D array of strings (char **argv) as input, where the first element (argv[0]) is the command to be executed, and the rest of the elements are arguments to that command.
 
 **2. get_location.c**
 
